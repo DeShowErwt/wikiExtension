@@ -1,9 +1,10 @@
 const outlet = document.querySelector('#search_outlet')
 const error_content = document.querySelector('#error-content')
 const content = document.querySelector('#basic_content')
+const searchButton = document.querySelector('#searchButton')
 
 function listenForClick(){
-    document.addEventListener("click", (e) => {
+    searchButton.addEventListener("click", (e) => {
         //Working function
         outlet.textContent = "Wikipedia API not yet implemented, it will be as soon as possible!"    
     })
