@@ -4,8 +4,14 @@
     </head>
     <body>
         <div id="basic-content">
-            <h1>Hello World!</h1>
+            <h2 id="help">Give me that wiki!</h2>
+            <input id="page"><button @click="run()">Give me the wiki</button>
+            <div id="search_outlet"></div>
         </div>
-        <div id="error-content" class="hidden"></div>
+        <div id="error-content" class="hidden">
+            <h2>Something went wrong! We're sorry :(</h2>
+        </div>
+        
+        <script src="script.js"></script>
     </body>
 </html>
