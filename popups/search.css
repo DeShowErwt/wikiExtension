@@ -1,0 +1,13 @@
+@font-face {
+    font-family: "customFont";
+    src:url("../fonts/WORLD_OF_WATER.OTF")
+}
+
+body{
+    width: 300px;
+    font-family: "customFont";
+}
+
+.hidden{
+    display: none;
+}
