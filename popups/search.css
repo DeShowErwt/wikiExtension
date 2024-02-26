@@ -1,13 +1,20 @@
 @font-face {
-    font-family: "customFont";
-    src:url("../fonts/WORLD_OF_WATER.OTF")
+    font-family: "worldOfWaterFont";
+    src:url("../fonts/WORLD_OF_WATER.OTF");
+    font-family: "glacialIndifferenceFont";
+    src:url("../fonts/GLACIAL-INDIFFERENCE.REGULAR.OTF")
 }
 
 body{
     width: 300px;
-    font-family: "customFont";
+    font-family: "glacialIndifferenceFont";
 }
 
 .hidden{
     display: none;
+}
+
+#query{
+    outline: none;
+    border-radius: 0%;
 }
