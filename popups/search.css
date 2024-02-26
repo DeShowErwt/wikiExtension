@@ -1,3 +1,15 @@
+* {
+    --background: #d0d0d0;
+    --accents: #1c1c1c;
+}
+
+@media(prefers-color-scheme: dark){
+    *{
+        --background: #1c1c1c;
+        --accents: #b3b3b3;
+    }
+}
+
 @font-face {
     font-family: "worldOfWaterFont";
     src:url("../fonts/WORLD_OF_WATER.OTF");
@@ -6,8 +18,11 @@
 }
 
 body{
-    width: 300px;
+    background-color: var(--background);
+    width: 500px;
+    height: 500px;
     font-family: "glacialIndifferenceFont";
+    color: var(--accents);
 }
 
 .hidden{
@@ -15,6 +30,20 @@ body{
 }
 
 #query{
-    outline: none;
+    /* outline: none; */
+    border:none;
     border-radius: 0%;
+    height: 25px;
+    width: 60%;
+}
+
+button{
+    outline: none;
+    border: none;
+    display: inline-block;
+    text-decoration: none;
+    background-color: var(--accents);
+    box-shadow: none;
+    border-radius: 0%;
+    height: 25px;
 }

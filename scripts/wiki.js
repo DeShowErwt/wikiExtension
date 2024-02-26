@@ -7,3 +7,5 @@ function run(){
     errorContent.classList.remove('hidden');
     console.log("i ran")
 }
+
+// Anything outside of a function is ran when the button is clicked
