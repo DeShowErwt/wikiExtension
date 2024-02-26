@@ -1,4 +1,5 @@
 // Use this file to make calls to the Wikipedia API
+// https://www.mediawiki.org/wiki/API:Main_page
 const outlet = document.querySelector('#search_outlet');
 const header = document.getElementById('help');
 const errorContent = document.querySelector('error-content');
