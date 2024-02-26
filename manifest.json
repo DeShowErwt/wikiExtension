@@ -1,0 +1,18 @@
+{
+    "manifest_version":2,
+    "name":"Wiki Extension",
+    "version":"0.1",
+
+    "description":"View a short part of a wikipedia page right from your current window",
+
+    "icons": {
+        "48":"icons/wiki-extension.png",
+        "32":"icons/wiki-extension.png"
+    },
+
+    "browser_action": {
+        "default_icon": "icons/wiki-extension.png",
+        "default_title": "Wiki search",
+        "default_popup":"popups/search.html"
+    }
+}
