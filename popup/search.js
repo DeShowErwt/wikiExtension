@@ -30,7 +30,7 @@ function listenForClick(){
                 tempElement.innerHTML=wiki_html
                 const text = tempElement.textContent 
                 outlet.textContent = text.substring(0,800);
-                page_link.innerHTML = '<a href="https://en.wikipedia.org/wiki/' + query + '">Continue reading...</a>'
+                page_link.innerHTML = '<a href="https://en.wikipedia.org/wiki/' + query + '" class="accent">Continue reading...</a>'
             })  
     })
 }
