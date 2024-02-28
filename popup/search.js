@@ -28,8 +28,6 @@ function listenForClick(){
                 // Use JavaScript DOM manipulation to remove html tags, also allows for getting or removing specific elements
                 const tempElement = document.createElement('div')
                 tempElement.innerHTML=wiki_html
-                console.log(tempElement.firstChild['outerText'].textContent)
-                tempElement.firstChild.removeChild(tempElement.firstChild.firstChild)
                 const text = tempElement.textContent 
                 outlet.textContent = text.substring(0,800);
                 page_link.innerHTML = '<a href="https://en.wikipedia.org/wiki/' + query + '">Continue reading...</a>'
