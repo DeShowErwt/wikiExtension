@@ -22,7 +22,6 @@
 body{
     background-color: var(--background);
     width: 500px;
-    height: 500px;
     font-family: "glacialIndifferenceFont";
     color: var(--accents);
 }
@@ -36,7 +35,7 @@ body{
     border:none;
     border-radius: 0%;
     height: 25px;
-    width: 60%;
+    width: 80%;
 }
 
 .accent{
