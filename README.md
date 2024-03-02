@@ -2,7 +2,7 @@
 Browser extension that allows the user to quickly search for a wikipedia page without having to change tabs.
 
 ## Running the extension
-To run the extension you only have to follow a couple of steps, determined by your browser. (Jump to <a href="#firefox">Firefox</a> / <a href="#chrome">Chrome</a>)
+To run the extension you only have to follow a couple of steps, determined by your browser. (Jump to <a href="#firefox">Firefox</a> / <a href="#chrome">Chrome</a> / <a href="#edge">Edge</a>)
 
 ### Firefox
 
