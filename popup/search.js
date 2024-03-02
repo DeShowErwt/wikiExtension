@@ -9,6 +9,17 @@ const modeToggleButton = document.querySelector('#modeToggleButton')
 // We only have one body element so doing the elements by tag and getting the first item works
 const body = document.getElementsByTagName('body').item(0)
 
+// Function that takes care of removing any non-informative classes from the response
+function cleanupResponse(htmlElement, removalClasses){
+    for(i=0;i < removalClasses.length;i++){
+        // Get all elements from the given html
+        removalList = htmlElement.getElementsByClassName(removalClasses[i])
+        // Everytime we remove an element from the list its length gets 1 shorter, until the list is empty (length = 0), keep removing until this is the case
+        while(0<removalList.length){removalList.item(0).remove()}
+    }
+    return htmlElement.textContent
+}
+
 function handleSearch(){
     let query = searchInput.value
     // Only search if an actual query has been entered
@@ -28,10 +39,9 @@ function handleSearch(){
     fetch(wikiURL)
         .then(res=>res.json())
         .then(data=>{
-            console.log(data)
-            const wiki_html = data['parse']['text']['*']
+            wiki_html = data['parse']['text']['*']
             // Use JavaScript DOM manipulation to remove html tags, also allows for getting or removing specific elements
-            const tempElement = document.createElement('div')
+            tempElement = document.createElement('div')
             tempElement.innerHTML=wiki_html
 
             // Let the short description be the title as it is most likely part of the answer the user is looking for
@@ -40,29 +50,14 @@ function handleSearch(){
             //Since we make this element a header we dont want it displayed in the further text
             title.remove()
 
-            //TODO: find a way to remove this boilerplate (definitely create a seperate function for content optimalization)
-            //Create a couple of lists that contain the elements we want to remove from the article
             // Style elements contain non-readable text but it gets recognized by JS as such
             styleItemsList = tempElement.getElementsByTagName('style')
-            // Infoboxes dont provide us with the easily readable first couple of lines (which the application is built to serve up)
-            infoboxList = tempElement.getElementsByClassName('infobox')
-            // Hatnotes are notes by wikipedia which help the user to navigate on wikipedia 
-            hatnoteList = tempElement.getElementsByClassName('hatnote')
-            // References are useful for linking to the sources that were cited, that is not a feature we support
-            referenceList = tempElement.getElementsByClassName('reference')
-            // Items with the noexcerpt class are not part of the base text of an article
-            noexcerptList = tempElement.getElementsByClassName('noexcerpt')
-            // Amboxes are information boxes that are placed atop an article by moderators to notify users for potential problems with an article, however, as we work with limited space to print out our results we dont want to include the amboxes
-            amboxList = tempElement.getElementsByClassName('ambox') 
-            // Everytime we remove an element from the list its length gets 1 shorter, until the list is empty (length = 0), keep removing until this is the case
             while(0 < styleItemsList.length){styleItemsList.item(0).remove()}
-            while(0 < infoboxList.length){infoboxList.item(0).remove()}
-            while(0 < hatnoteList.length){hatnoteList.item(0).remove()}
-            while(0 < referenceList.length){referenceList.item(0).remove()}
-            while(0 < noexcerptList.length){noexcerptList.item(0).remove()}
-            while(0 < amboxList.length){amboxList.item(0).remove()}
-            // Only get the text from the just entered html
-            const text = tempElement.textContent 
+
+            // Create a list with the classname of items that need to be removed for information on what all these classes are check REMOVALCLASSES.md
+            classesToRemove = ['infobox', 'hatnote', 'reference', 'ext-phonos','ambox']
+            // Remove the classes just entered in the function, the function returns the text we want only, this will be saved in a text variable
+            text = cleanupResponse(tempElement, classesToRemove)
             // Only display the first n chars, we dont want to place the whole page within the small extension box but mainly want to display the introduction part
             outlet.textContent = text.substring(0,800) + '...';
             // If the user wants to read more we can insert the wikipedia url in this link easily and place it under the output
