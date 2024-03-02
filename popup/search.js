@@ -5,6 +5,9 @@ const error_content = document.querySelector('#error-content')
 const content = document.querySelector('#basic-content')
 const searchButton = document.querySelector('#searchButton')
 const searchInput = document.querySelector('#query')
+const modeToggleButton = document.querySelector('#modeToggleButton')
+// We only have one body element so doing the elements by tag and getting the first item works
+const body = document.getElementsByTagName('body').item(0)
 
 function handleSearch(){
     let query = searchInput.value
@@ -77,6 +80,22 @@ function listenForSearch(){
     })
 }
 
+function listenForModeToggle(){
+    modeToggleButton.addEventListener("click", (e)=>{
+        let classes = body.classList
+        if(classes.contains('lightmode')){
+            classes.remove('lightmode')
+            classes.add('darkmode')
+            modeToggleButton.textContent = 'Lightmode'
+            return
+        }
+        classes.remove('darkmode')
+        classes.add('lightmode')
+        modeToggleButton.textContent = 'Darkmode'
+        return
+    })
+}
+
 // Run if an error is detected to display the error text
 function reportExecuteScriptError(error){
     content.classList.add("hidden")
@@ -85,6 +104,7 @@ function reportExecuteScriptError(error){
 
 try{
     listenForSearch()
+    listenForModeToggle()
 }
 //If anything goes wrong we send that error to the reportExecuteScriptError
 catch(e){reportExecuteScriptError(e)}

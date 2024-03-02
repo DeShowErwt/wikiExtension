@@ -1,15 +1,13 @@
-* {
+.lightmode {
     --background: #d0d0d0;
     --accents: #1c1c1c;
     --disguised-accent: #4c4c4c;
 }
 
-@media(prefers-color-scheme: dark){
-    *{
-        --background: #1c1c1c;
-        --accents: #b3b3b3;
-        --disguised-accent: #838383;
-    }
+.darkmode{
+    --background: #1c1c1c;
+    --accents: #b3b3b3;
+    --disguised-accent: #838383;
 }
 
 @font-face {
@@ -66,4 +64,10 @@ button{
     font-size: large;
     font-weight: bold;
     margin: 15px 0px;
+}
+
+#modeToggleButton{
+    color: var(--background);
+    background-color: var(--accents);
+    float: right;
 }
