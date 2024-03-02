@@ -12,3 +12,7 @@ For Firefox navigate to 'about:debugging' in your browser. Then click 'This Fire
 ### Chrome
 
 In Chrome navigate to 'chrome://extensions'. On the extensions page toggle the developer options (top-right) to on. Toggling this on should display three new buttons at the top of the page. Click the 'Load unpacked' button. This will open the File Explorer, navigate to the root directory of this project and press open to add the extension to Chrome.
+
+### Edge
+
+For Microsoft Edge navigate to 'edge://extensions'. On this page switch developer mode (button middle-left) on. Three buttons will appear next to installed extensions. Press the 'Load unpacked' button. This opens the File Explorer, navigate to the root directory of this project and open it.
