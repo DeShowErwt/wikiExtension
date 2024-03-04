@@ -1,8 +1,9 @@
 const page_title = document.querySelector('#page-title')
-const outlet = document.querySelector('#page-content')
+const outlet = document.querySelector('#search_outlet')
+const outlet_content = document.querySelector('#page-content')
 const page_link = document.querySelector('#page-link')
 const error_content = document.querySelector('#error-content')
-const content = document.querySelector('#basic-content')
+const error_message = document.querySelector('#error-message')
 const searchButton = document.querySelector('#searchButton')
 const searchInput = document.querySelector('#query')
 const modeToggleButton = document.querySelector('#modeToggleButton')
@@ -23,7 +24,7 @@ function cleanupResponse(htmlElement, removalClasses){
 function handleSearch(){
     let query = searchInput.value
     // Only search if an actual query has been entered
-    if(query.trim()===''){reportExecuteScriptError('No input detected');return}
+    if(query.trim()===''){reportError('No input detected');return}
     // We are handling a url so spaces are not allowed, to make the input easier for the user we allow them to fill in spaces and convert those to _
     query = query.replace(' ', '_')
     // The base of any api call
@@ -39,7 +40,19 @@ function handleSearch(){
     fetch(wikiURL)
         .then(res=>res.json())
         .then(data=>{
-            wiki_html = data['parse']['text']['*']
+            try{
+                // The wikipedia response for an existing page will have this structure
+                wiki_html = data['parse']['text']['*']
+            }catch{
+                // If the error is that the article does not exist the code will be missingtitle, in that case we want to give some extra information about how to search the correct way
+                if(data['error']['code'] == 'missingtitle'){
+                    reportError('There is no article with that name. Did you use the correct capitalization? For common nouns capitalize only the first word.')
+                }
+                // If the error message is different we want to display the error info the API itself gives us  
+                else {
+                    reportError(data['error']['info'])
+                }
+            }
             // Use JavaScript DOM manipulation to remove html tags, also allows for getting or removing specific elements
             tempElement = document.createElement('div')
             tempElement.innerHTML=wiki_html
@@ -59,10 +72,10 @@ function handleSearch(){
             // Remove the classes just entered in the function, the function returns the text we want only, this will be saved in a text variable
             text = cleanupResponse(tempElement, classesToRemove)
             // Only display the first n chars, we dont want to place the whole page within the small extension box but mainly want to display the introduction part
-            outlet.textContent = text.substring(0,800) + '...';
+            outlet_content.textContent = text.substring(0,800) + '...';
             // If the user wants to read more we can insert the wikipedia url in this link easily and place it under the output
             page_link.innerHTML = '<a href="https://en.wikipedia.org/wiki/' + query + '" class="accent">Continue reading</a>'
-        })  
+        }).catch(reportError('Trouble getting the Wikipedia page, are you connected to the internet?'))  
 }
 
 
@@ -92,9 +105,11 @@ function listenForModeToggle(){
 }
 
 // Run if an error is detected to display the error text
-function reportExecuteScriptError(error){
-    content.classList.add("hidden")
+function reportError(errorMessage){
+    // Dont disable all content on error, only disable the outlet, showing the issue and allowing the user to continue
+    outlet.classList.add("hidden")
     error_content.classList.remove('hidden');
+    error_message.textContent = errorMessage;
 }
 
 try{
@@ -102,4 +117,4 @@ try{
     listenForModeToggle()
 }
 //If anything goes wrong we send that error to the reportExecuteScriptError
-catch(e){reportExecuteScriptError(e)}
+catch(e){reportError(e)}
