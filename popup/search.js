@@ -40,6 +40,8 @@ function handleSearch(){
     fetch(wikiURL)
         .then(res=>res.json())
         .then(data=>{
+            //TODO: flow for a redirection to work (query Organogram for example)
+            console.log(data)
             try{
                 // The wikipedia response for an existing page will have this structure
                 wiki_html = data['parse']['text']['*']
@@ -58,11 +60,14 @@ function handleSearch(){
             tempElement.innerHTML=wiki_html
 
             // Let the short description be the title as it is most likely part of the answer the user is looking for
-            title = tempElement.getElementsByClassName('shortdescription').item(0)
-            page_title.textContent = title.textContent
-            //Since we make this element a header we dont want it displayed in the further text
-            title.remove()
-
+            try{
+                title = tempElement.getElementsByClassName('shortdescription').item(0)
+                page_title.textContent = title.textContent
+                //Since we make this element a header we dont want it displayed in the further text
+                title.remove()
+            }catch{
+                page_title.textContent = '';
+            }
             // Style elements contain non-readable text but it gets recognized by JS as such
             styleItemsList = tempElement.getElementsByTagName('style')
             while(0 < styleItemsList.length){styleItemsList.item(0).remove()}
